@@ -10,6 +10,8 @@ import { User } from './models/User';
 })
 export class AppComponent {
   title = 'TallerRXJS';
+  usuarioNoEncontrado: boolean = false; // Nueva variable
+
   ROOT_URL = "https://dummyjson.com";
 
   // Para Realizar Peticiones HTTP
@@ -24,25 +26,27 @@ export class AppComponent {
   txUser: string = "";
 
   searchUser() {
-    // Verifica que txUser no esté vacío
     if (!this.txUser.trim()) {
       console.warn("El campo de búsqueda está vacío.");
       this.usuario = null;
+      this.usuarioNoEncontrado = false;
       return;
     }
 
     this.http.get<any>(`${this.ROOT_URL}/users/search?q=${this.txUser}`).subscribe({
       next: (userInfo) => {
         if (userInfo.users && userInfo.users.length > 0) {
-          this.usuario = userInfo.users[0]; // Obtiene el primer usuario de la lista
+          this.usuario = userInfo.users[0];
+          this.usuarioNoEncontrado = false;
         } else {
           this.usuario = null;
-          console.warn("Usuario no encontrado.");
+          this.usuarioNoEncontrado = true;
         }
       },
       error: (err) => {
         console.error("Error al buscar usuario:", err);
         this.usuario = null;
+        this.usuarioNoEncontrado = true;
       }
     });
   }
