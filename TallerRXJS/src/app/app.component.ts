@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'TallerRXJS';
+
+  ROOT_URL = "https://dummyjson.com";
+
+  //Declaramos lo que necesitamos
+  txUser: string = "";
+
+  searchUser(){
+
+  }
 }
