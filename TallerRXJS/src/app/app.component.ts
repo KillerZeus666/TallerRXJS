@@ -50,4 +50,10 @@ export class AppComponent {
       }
     });
   }
+
+  ngOnInit():void{
+    this.http.get(`${this.ROOT_URL}/users/1`).subscribe((userInfo:any)=>{
+      this.usuario=userInfo;
+    })
+  }
 }
