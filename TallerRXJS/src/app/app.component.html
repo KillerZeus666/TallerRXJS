@@ -5,4 +5,11 @@
     <input type="text" [(ngModel)]="txUser" name="username" required>
     <button type="submit">Buscar Usuario</button>
   </form>
+
+  <ng-container *ngIf="user$ | async as user">
+    <p>ID: {{ user.id }}</p>
+    <p>Nombre: {{ user.firstName }}</p>
+    <p>Username: {{ user.username }}</p>
+    <p>Email: {{ user.email }}</p>
+  </ng-container>
 </div>
