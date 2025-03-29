@@ -7,13 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'TallerRXJS';
-
   ROOT_URL = "https://dummyjson.com";
 
-  //Declaramos lo que necesitamos
+  // Declaramos la variable correctamente
   txUser: string = "";
 
-  searchUser(){
-
+  searchUser() {
   }
 }
