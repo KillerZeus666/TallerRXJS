@@ -1,17 +1,19 @@
-<h1>TALLER RXJS</h1>
-<div>
+<div class="container">
+  <h1>🌟 TALLER RXJS 🌟</h1>
   <form #form="ngForm" (ngSubmit)="searchUser()">
-    <label for="username">Username: </label>
-    <input type="text" [(ngModel)]="txUser" name="username" required>
-    <button type="submit">Buscar Usuario</button>
+    <label for="username">🔍 Username:</label>
+    <input type="text" [(ngModel)]="txUser" name="username" required placeholder="Ingrese el username">
+    <button type="submit">Buscar Usuario 🚀</button>
   </form>
 
   <ng-container *ngIf="usuario">
-    <p>ID: {{ usuario.id }}</p>
-    <p>Nombre: {{ usuario.firstName }}</p>
-    <p>Username: {{ usuario.username }}</p>
-    <p>Email: {{ usuario.email }}</p>
+    <div class="user-info">
+      <p><strong>ID:</strong> {{ usuario.id }}</p>
+      <p><strong>Nombre:</strong> {{ usuario.firstName }}</p>
+      <p><strong>Username:</strong> {{ usuario.username }}</p>
+      <p><strong>Email:</strong> {{ usuario.email }}</p>
+    </div>
   </ng-container>
 
-  <p *ngIf="usuarioNoEncontrado" style="color: red;">Usuario no encontrado</p>
+  <p *ngIf="usuarioNoEncontrado" class="error-message">⚠️ Usuario no encontrado ⚠️</p>
 </div>

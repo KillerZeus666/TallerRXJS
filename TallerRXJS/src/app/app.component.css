@@ -1,0 +1,123 @@
+/* Estilos generales */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ff6f61, #ff3b2f, #c31432);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  /* Contenedor principal */
+  .container {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+    width: 400px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .container:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Título */
+  h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, #ffeb3b, #ff9800);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+  }
+  
+  /* Formulario */
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  label {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  input {
+    width: 90%;
+    padding: 12px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    text-align: center;
+    outline: none;
+    transition: 0.3s;
+  }
+  
+  input:focus {
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8);
+  }
+  
+  /* Botón */
+  button {
+    background: linear-gradient(90deg, #ffeb3b, #ff9800);
+    color: #333;
+    border: none;
+    padding: 12px 20px;
+    margin-top: 15px;
+    cursor: pointer;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: 0.3s ease-in-out;
+  }
+  
+  button:hover {
+    background: linear-gradient(90deg, #ff9800, #ffeb3b);
+    transform: scale(1.1);
+  }
+  
+  /* Información del usuario */
+  .user-info {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 15px;
+    box-shadow: 0px 5px 15px rgba(255, 255, 255, 0.2);
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  /* Animación */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Mensaje de error */
+  .error-message {
+    color: #ffeb3b;
+    font-weight: bold;
+    margin-top: 10px;
+    animation: shake 0.3s ease-in-out;
+  }
+  
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+  }
+  
