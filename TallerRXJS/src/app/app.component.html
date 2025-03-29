@@ -6,10 +6,10 @@
     <button type="submit">Buscar Usuario</button>
   </form>
 
-  <ng-container *ngIf="user$ | async as user">
-    <p>ID: {{ user.id }}</p>
-    <p>Nombre: {{ user.firstName }}</p>
-    <p>Username: {{ user.username }}</p>
-    <p>Email: {{ user.email }}</p>
+  <ng-container *ngIf="usuario">
+    <p>ID: {{ usuario.id }}</p>
+    <p>Nombre: {{ usuario.firstName }}</p>
+    <p>Username: {{ usuario.username }}</p>
+    <p>Email: {{ usuario.email }}</p>
   </ng-container>
 </div>

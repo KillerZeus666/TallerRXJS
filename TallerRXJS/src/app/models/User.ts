@@ -6,4 +6,5 @@ export interface User {
     username: string;
     email: string;
   }
-export {}; // Esto fuerza a TypeScript a reconocer el archivo como un módulo
+ // Esto fuerza a TypeScript a reconocer el archivo como un módulo
+export {};
