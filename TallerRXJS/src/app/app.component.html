@@ -14,6 +14,14 @@
       <p><strong>Email:</strong> {{ usuario.email }}</p>
     </div>
   </ng-container>
+  
+  <div>
+    <h2>Posts</h2>
+    <ng-container *ngIf="publicacion">
+      <p>Nombre: {{ publicacion.title }}</p>
+      <p>Contenido: {{ publicacion.body }}</p>
+    </ng-container>
+  </div>
 
   <p *ngIf="usuarioNoEncontrado" class="error-message">⚠️ Usuario no encontrado ⚠️</p>
 </div>
