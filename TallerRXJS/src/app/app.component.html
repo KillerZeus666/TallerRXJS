@@ -1,31 +1,43 @@
-<div class="container">
-  <h1>🌟 TALLER RXJS 🌟</h1>
-  <form #form="ngForm" (ngSubmit)="searchUser()">
-    <label for="username">🔍 Username:</label>
-    <input type="text" [(ngModel)]="txUser" name="username" required placeholder="Ingrese el username">
-    <button type="submit">Buscar Usuario 🚀</button>
-  </form>
-
-  <ng-container *ngIf="usuario">
-    <div class="user-info">
-      <p><strong>ID:</strong> {{ usuario.id }}</p>
-      <p><strong>Nombre:</strong> {{ usuario.firstName }}</p>
-      <p><strong>Username:</strong> {{ usuario.username }}</p>
-      <p><strong>Email:</strong> {{ usuario.email }}</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Search - RXJS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🌟 TALLER RXJS 🌟</h1>
+        
+        <form #form="ngForm" (ngSubmit)="searchUser()">
+            <label for="username">🔍 Username:</label>
+            <input type="text" [(ngModel)]="txUser" name="username" required placeholder="Ingrese el username">
+            <button type="submit">Buscar Usuario 🚀</button>
+        </form>
+        
+        <ng-container *ngIf="usuario">
+            <div class="user-info">
+                <p><strong>ID:</strong> {{ usuario.id }}</p>
+                <p><strong>Nombre:</strong> {{ usuario.firstName }}</p>
+                <p><strong>Username:</strong> {{ usuario.username }}</p>
+                <p><strong>Email:</strong> {{ usuario.email }}</p>
+            </div>
+        </ng-container>
+        
+        <div *ngIf="usuario">
+            <h2>📌 Posts del Usuario</h2>
+            <ng-container *ngIf="publicacion">
+                <div class="post-info">
+                    <p><strong>Título:</strong> {{ publicacion.title }}</p>
+                    <p><strong>Contenido:</strong> {{ publicacion.body }}</p>
+                    <p><i class="fa-solid fa-thumbs-up"></i> Likes: {{ publicacion.reactions.likes }}</p>
+                    <p><i class="fa-solid fa-thumbs-down"></i> Dislikes: {{ publicacion.reactions.dislikes }}</p>
+                </div>
+            </ng-container>
+        </div>
+        
+        <p *ngIf="usuarioNoEncontrado" class="error-message">⚠️ Usuario no encontrado ⚠️</p>
     </div>
-  </ng-container>
-  
-  <div>
-    <h2>Posts</h2>
-    <ng-container *ngIf="publicacion">
-      <p>Nombre: {{ publicacion.title }}</p>
-      <p>Contenido: {{ publicacion.body }}</p>
-      <p>Likes: {{ publicacion.reactions.likes}}</p>
-      <p>Dislikes: {{publicacion.reactions.dislikes}}</p>
-
-
-    </ng-container>
-  </div>
-
-  <p *ngIf="usuarioNoEncontrado" class="error-message">⚠️ Usuario no encontrado ⚠️</p>
-</div>
+</body>
+</html>
