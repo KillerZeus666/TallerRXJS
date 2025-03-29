@@ -20,6 +20,10 @@
     <ng-container *ngIf="publicacion">
       <p>Nombre: {{ publicacion.title }}</p>
       <p>Contenido: {{ publicacion.body }}</p>
+      <p>Likes: {{ publicacion.reactions.likes}}</p>
+      <p>Dislikes: {{publicacion.reactions.dislikes}}</p>
+
+
     </ng-container>
   </div>
 
