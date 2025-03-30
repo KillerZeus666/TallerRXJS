@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { User } from './models/User';
 import { Post } from './models/Post';
+import { Comment } from './models/Comment';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ export class AppComponent implements OnInit {
   usuario: User | null = null;
   publicacion: Post | null = null;
   txUser: string = "";
+  comentarios: Comment[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -63,13 +65,33 @@ export class AppComponent implements OnInit {
   getPost(id: number) {
     this.http.get<any>(`${this.ROOT_URL}/posts/user/${id}`).subscribe(
       (postInfo: any) => {
-        this.publicacion = postInfo.posts.length > 0 ? postInfo.posts[0] : null; // Toma el primer post o deja null si no hay
+        if (postInfo.posts && postInfo.posts.length > 0) {
+          this.publicacion = postInfo.posts[0];
+  
+          // Verificación explícita antes de hacer la petición de comentarios
+          if (this.publicacion && this.publicacion.id) {
+            this.http.get<any>(`${this.ROOT_URL}/comments/post/${this.publicacion.id}`).subscribe(
+              (commentsInfo: any) => {
+                this.comentarios = commentsInfo.comments || [];
+              },
+              (error) => {
+                console.error('Error al obtener los comentarios:', error);
+              }
+            );
+          } else {
+            this.comentarios = []; // Limpiar comentarios si no hay publicación válida
+          }
+        } else {
+          this.publicacion = null;
+          this.comentarios = []; // Limpiar comentarios si no hay posts
+        }
       },
       (error) => {
         console.error('Error al obtener los posts:', error);
       }
     );
   }
+  
 
   getUserAndPost() {
     this.http.get<any>(`${this.ROOT_URL}/users/search?q=${this.txUser}`)
@@ -78,16 +100,37 @@ export class AppComponent implements OnInit {
           if (userInfo.users && userInfo.users.length > 0) {
             this.usuario = userInfo.users[0];
             this.usuarioNoEncontrado = false;
-            return this.http.get<any>(`${this.ROOT_URL}/posts/user/${this.usuario!.id}`);
-          } else {
-            this.usuario = null;
-            this.usuarioNoEncontrado = true;
-            return of(null); // Retorna un observable vacío si no hay usuario
+  
+            // Verificación explícita antes de acceder a id
+            if (this.usuario?.id) {
+              return this.http.get<any>(`${this.ROOT_URL}/posts/user/${this.usuario.id}`);
+            }
+          } 
+  
+          this.usuario = null;
+          this.usuarioNoEncontrado = true;
+          return of(null);
+        }),
+        mergeMap((postInfo: any) => {
+          if (postInfo && postInfo.posts.length > 0) {
+            this.publicacion = postInfo.posts[0];
+  
+            // Verificación antes de acceder a id
+            if (this.publicacion?.id) {
+              return this.http.get<any>(`${this.ROOT_URL}/comments/post/${this.publicacion.id}`);
+            }
           }
+  
+          this.publicacion = null;
+          this.comentarios = [];
+          return of(null);
         })
       )
-      .subscribe((postInfo: any) => {
-        this.publicacion = postInfo && postInfo.posts.length > 0 ? postInfo.posts[0] : null;
+      .subscribe((commentsInfo: any) => {
+        this.comentarios = commentsInfo?.comments || [];
       });
   }
+  
+  
+
 }
