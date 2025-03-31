@@ -35,66 +35,8 @@
       </form>
 
       <app-info-usuario></app-info-usuario>
-      <ng-container *ngIf="usuario; else noUser">
-        <h2><i class="fas fa-newspaper"></i> Información del Usuario</h2>
-        <div class="user-info">
-          <p><strong>ID:</strong> {{ usuario.id }}</p>
-          <p><strong>Nombre:</strong> {{ usuario.firstName }}</p>
-          <p><strong>Username:</strong> {{ usuario.username }}</p>
-          <p><strong>Email:</strong> {{ usuario.email }}</p>
-        </div>
-      </ng-container>
-      <ng-template #noUser></ng-template> <!-- Oculta la sección si no hay usuario -->
-
       <app-posts></app-posts>
-      <div *ngIf="usuario">
-        <h2><i class="fas fa-newspaper"></i> Posts del Usuario</h2>
-        <ng-container *ngIf="publicacion; else noPosts">
-          <div class="post-info">
-            <p><strong> {{ publicacion.title }} </strong></p>
-            <p> {{ publicacion.body }}</p>
-            <div class="reactions">
-              <span class="likes"
-                ><i class="fas fa-thumbs-up"></i> Likes:
-                {{ publicacion.reactions.likes }}</span
-              >
-              <span class="dislikes"
-                ><i class="fas fa-thumbs-down"></i> Dislikes:
-                {{ publicacion.reactions.dislikes }}</span
-              >
-            </div>
-          </div>
-        </ng-container>
-        <ng-template #noPosts>
-          <p class="no-posts">
-            <i class="fas fa-folder-open"></i> 📭 No hay publicaciones para este
-            usuario.
-          </p>
-        </ng-template>
-      </div>
-
       <app-comments></app-comments>
-      <div *ngIf="publicacion">
-        <h2><i class="fas fa-comments"></i> Comentarios del Post</h2>
-        <ng-container *ngIf="comentarios.length > 0; else noComments">
-          <ul class="comments-list">
-            <li *ngFor="let comentario of comentarios">
-              <p>
-                <strong>{{ comentario.user.username }}:</strong>
-                {{ comentario.body }}
-              </p>
-            </li>
-          </ul>
-        </ng-container>
-        <ng-template #noComments>
-          <p class="no-comments">
-            <i class="fas fa-comment-slash"></i> No hay comentarios en este
-            post.
-          </p>
-        </ng-template>
-      </div>
-
-      <p *ngIf="usuarioNoEncontrado" class="error-message"> ⚠️ Usuario no encontrado ⚠️ </p>
     </div>
   </body>
 </html>
