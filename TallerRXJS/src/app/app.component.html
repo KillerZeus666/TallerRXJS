@@ -1,58 +1,99 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Social Search - RXJS</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <div class="container">
-        <h1>🌟 TALLER RXJS 🌟</h1>
-        
-        <form #form="ngForm" (ngSubmit)="searchUser()">
-            <label for="username">🔍 Username:</label>
-            <input type="text" [(ngModel)]="txUser" name="username" required placeholder="Ingrese el username">
-            <button type="submit">Buscar Usuario 🚀</button>
-        </form>
-        
-        <ng-container *ngIf="usuario">
-            <div class="user-info">
-                <p><strong>ID:</strong> {{ usuario.id }}</p>
-                <p><strong>Nombre:</strong> {{ usuario.firstName }}</p>
-                <p><strong>Username:</strong> {{ usuario.username }}</p>
-                <p><strong>Email:</strong> {{ usuario.email }}</p>
+      <h1>🌟 TALLER RXJS 🌟</h1>
+
+      <form #form="ngForm" (ngSubmit)="searchUser()">
+        <div class="input-group">
+          <label for="username"><i class="fas fa-user"></i> Username</label>
+          <input
+            type="text"
+            [(ngModel)]="txUser"
+            name="username"
+            required
+            placeholder="Ingrese el username"
+          />
+        </div>
+        <button type="submit">
+          <i class="fas fa-search"></i> Buscar Usuario 🌤️
+        </button>
+        <div class="divider"></div>
+      </form>
+
+      <ng-container *ngIf="usuario; else noUser">
+        <h2><i class="fas fa-newspaper"></i> Información del Usuario</h2>
+        <div class="user-info">
+          <p><strong>ID:</strong> {{ usuario.id }}</p>
+          <p><strong>Nombre:</strong> {{ usuario.firstName }}</p>
+          <p><strong>Username:</strong> {{ usuario.username }}</p>
+          <p><strong>Email:</strong> {{ usuario.email }}</p>
+        </div>
+      </ng-container>
+      <ng-template #noUser></ng-template> <!-- Oculta la sección si no hay usuario -->
+
+      <div *ngIf="usuario">
+        <h2><i class="fas fa-newspaper"></i> Posts del Usuario</h2>
+        <ng-container *ngIf="publicacion; else noPosts">
+          <div class="post-info">
+            <p><strong> {{ publicacion.title }} </strong></p>
+            <p> {{ publicacion.body }}</p>
+            <div class="reactions">
+              <span class="likes"
+                ><i class="fas fa-thumbs-up"></i> Likes:
+                {{ publicacion.reactions.likes }}</span
+              >
+              <span class="dislikes"
+                ><i class="fas fa-thumbs-down"></i> Dislikes:
+                {{ publicacion.reactions.dislikes }}</span
+              >
             </div>
+          </div>
         </ng-container>
-        
-        <div *ngIf="usuario">
-            <h2>📌 Posts del Usuario</h2>
-            <ng-container *ngIf="publicacion">
-                <div class="post-info">
-                    <p><strong>Título:</strong> {{ publicacion.title }}</p>
-                    <p><strong>Contenido:</strong> {{ publicacion.body }}</p>
-                    <p><i class="fa-solid fa-thumbs-up"></i> Likes: {{ publicacion.reactions.likes }}</p>
-                    <p><i class="fa-solid fa-thumbs-down"></i> Dislikes: {{ publicacion.reactions.dislikes }}</p>
-                </div>
-            </ng-container>
-        </div>
+        <ng-template #noPosts>
+          <p class="no-posts">
+            <i class="fas fa-folder-open"></i> 📭 No hay publicaciones para este
+            usuario.
+          </p>
+        </ng-template>
+      </div>
 
-        <!-- Nueva sección para comentarios -->
-        <div *ngIf="publicacion">
-            <h2>🗨️ Comentarios del Post</h2>
-            <ng-container *ngIf="comentarios.length > 0; else noComments">
-                <ul class="comments-list">
-                    <li *ngFor="let comentario of comentarios">
-                        <p><strong>{{ comentario.user.username }}:</strong> {{ comentario.body }}</p>
-                    </li>                    
-                </ul>
-            </ng-container>
-            <ng-template #noComments>
-                <p class="no-comments">📭 No hay comentarios en este post.</p>
-            </ng-template>
-        </div>
+      <div *ngIf="publicacion">
+        <h2><i class="fas fa-comments"></i> Comentarios del Post</h2>
+        <ng-container *ngIf="comentarios.length > 0; else noComments">
+          <ul class="comments-list">
+            <li *ngFor="let comentario of comentarios">
+              <p>
+                <strong>{{ comentario.user.username }}:</strong>
+                {{ comentario.body }}
+              </p>
+            </li>
+          </ul>
+        </ng-container>
+        <ng-template #noComments>
+          <p class="no-comments">
+            <i class="fas fa-comment-slash"></i> No hay comentarios en este
+            post.
+          </p>
+        </ng-template>
+      </div>
 
-        <p *ngIf="usuarioNoEncontrado" class="error-message">⚠️ Usuario no encontrado ⚠️</p>
+      <p *ngIf="usuarioNoEncontrado" class="error-message">
+        <i class="fas fa-exclamation-circle"></i> ⚠️ Usuario no encontrado ⚠️
+      </p>
     </div>
-</body>
+  </body>
 </html>

@@ -34,33 +34,36 @@ export class AppComponent implements OnInit {
     // Si el campo de búsqueda está vacío, no realiza la consulta
     if (!this.txUser.trim()) {
       console.warn("El campo de búsqueda está vacío.");
-      this.usuario = null;
-      this.usuarioNoEncontrado = false;
+      this.limpiarDatos();
       return;
     }
-
-    // Realiza la petición HTTP para buscar un usuario por nombre de usuario
+  
     this.http.get<any>(`${this.ROOT_URL}/users/search?q=${this.txUser}`).subscribe({
       next: (userInfo) => {
         // Verifica si se encontraron usuarios
         if (userInfo.users && userInfo.users.length > 0) {
-          this.usuario = userInfo.users[0]; // Toma el primer usuario encontrado
+          this.usuario = userInfo.users[0];
           this.usuarioNoEncontrado = false;
 
           // Llama a getUserAndPost() para obtener el post del usuario
           this.getUserAndPost();
         } else {
-          this.usuario = null;
-          this.usuarioNoEncontrado = true;
+          this.limpiarDatos();
         }
       },
       error: (err) => {
         console.error("Error al buscar usuario:", err);
-        this.usuario = null;
-        this.usuarioNoEncontrado = true;
+        this.limpiarDatos();
       }
     });
   }
+  
+  private limpiarDatos() {
+    this.usuario = null;
+    this.publicacion = null;
+    this.comentarios = [];
+    this.usuarioNoEncontrado = true;
+  }  
 
   getPost(id: number) {
     this.http.get<any>(`${this.ROOT_URL}/posts/user/${id}`).subscribe(
@@ -130,7 +133,4 @@ export class AppComponent implements OnInit {
         this.comentarios = commentsInfo?.comments || [];
       });
   }
-  
-  
-
 }
