@@ -1,0 +1,21 @@
+<div *ngIf="publicacion">
+    <h2><i class="fas fa-comments"></i> Comentarios del Post</h2>
+    <ng-container *ngIf="comentarios.length > 0; else noComments">
+      <ul class="comments-list">
+        <li *ngFor="let comentario of comentarios">
+          <p>
+            <strong>{{ comentario.user.username }}:</strong>
+            {{ comentario.body }}
+          </p>
+        </li>
+      </ul>
+    </ng-container>
+    <ng-template #noComments>
+      <p class="no-comments">
+        <i class="fas fa-comment-slash"></i> No hay comentarios en este
+        post.
+      </p>
+    </ng-template>
+  </div>
+
+  <p *ngIf="usuarioNoEncontrado" class="error-message"> ⚠️ Usuario no encontrado ⚠️ </p>

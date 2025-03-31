@@ -16,7 +16,7 @@
   <body>
     <div class="container">
       <h1>🌟 TALLER RXJS 🌟</h1>
-
+      
       <form #form="ngForm" (ngSubmit)="searchUser()">
         <div class="input-group">
           <label for="username"><i class="fas fa-user"></i> Username</label>
@@ -34,6 +34,7 @@
         <div class="divider"></div>
       </form>
 
+      <app-info-usuario></app-info-usuario>
       <ng-container *ngIf="usuario; else noUser">
         <h2><i class="fas fa-newspaper"></i> Información del Usuario</h2>
         <div class="user-info">
@@ -45,6 +46,7 @@
       </ng-container>
       <ng-template #noUser></ng-template> <!-- Oculta la sección si no hay usuario -->
 
+      <app-posts></app-posts>
       <div *ngIf="usuario">
         <h2><i class="fas fa-newspaper"></i> Posts del Usuario</h2>
         <ng-container *ngIf="publicacion; else noPosts">
@@ -71,6 +73,7 @@
         </ng-template>
       </div>
 
+      <app-comments></app-comments>
       <div *ngIf="publicacion">
         <h2><i class="fas fa-comments"></i> Comentarios del Post</h2>
         <ng-container *ngIf="comentarios.length > 0; else noComments">

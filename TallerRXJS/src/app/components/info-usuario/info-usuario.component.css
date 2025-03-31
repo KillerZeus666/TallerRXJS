@@ -1,0 +1,31 @@
+/* Contenedor de información del usuario */
+.user-info {
+    margin-top: 20px;
+    padding: 25px;
+    background: rgba(255, 237, 250, 0.8);
+    border-radius: 15px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in-out;
+    min-width: 40%;
+}
+
+.user-info p {
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.user-info strong {
+    color: #EC7FA9;
+    font-weight: 600;
+}
+
+/* Mensaje de error */
+.error-message {
+    color: #BE5985;
+    background: rgba(255, 184, 224, 0.7);
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-weight: 500;
+    animation: fadeIn 0.5s ease-in-out;
+}

@@ -1,4 +1,4 @@
-//Creacion de la Inferface User
+//Creación de la Inferface User
 
 export interface User {
     id: number;

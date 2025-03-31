@@ -1,0 +1,10 @@
+<ng-container *ngIf="usuario; else noUser">
+    <h2><i class="fas fa-newspaper"></i> Información del Usuario</h2>
+    <div class="user-info">
+      <p><strong>ID:</strong> {{ usuario.id }}</p>
+      <p><strong>Nombre:</strong> {{ usuario.firstName }}</p>
+      <p><strong>Username:</strong> {{ usuario.username }}</p>
+      <p><strong>Email:</strong> {{ usuario.email }}</p>
+    </div>
+  </ng-container>
+  <ng-template #noUser></ng-template> <!-- Oculta la sección si no hay usuario -->

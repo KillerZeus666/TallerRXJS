@@ -1,0 +1,39 @@
+/* Lista de comentarios */
+.comments-list {
+    list-style: none;
+    padding: 0;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.comments-list li {
+    padding: 15px;
+    margin-bottom: 15px;
+    background: rgba(255, 237, 250, 0.9);
+    border-radius: 10px;
+    border-left: 4px solid #EC7FA9;
+    transition: all 0.3s ease;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.comments-list li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.comments-list p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.comments-list strong {
+    color: #EC7FA9;
+}
+
+/* Mensaje cuando no hay comentarios */
+.no-comments {
+    color: #BE5985;
+    padding: 20px;
+    font-style: italic;
+}
