@@ -10,12 +10,11 @@ body {
 }
 
 .container {
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 237, 250, 0.6);
     padding: 40px;
     border-radius: 20px;
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    max-width: 1200px;
+    min-width: 90%;
     min-height: auto;
     text-align: center;
     backdrop-filter: blur(10px);
@@ -29,7 +28,7 @@ body {
 h1 {
     font-size: 2.5rem;
     margin-bottom: 30px;
-    background: linear-gradient(90deg, #ff758c, #ff7eb3, #ffc371);
+    background: linear-gradient(90deg, #FFB8E0, #EC7FA9, #BE5985);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -46,12 +45,12 @@ h1::after {
     transform: translateX(-50%);
     width: 100px;
     height: 4px;
-    background: linear-gradient(90deg, #ff758c, #ff7eb3, #ffc371);
+    background: linear-gradient(90deg, #FFB8E0, #EC7FA9, #BE5985);
     border-radius: 2px;
 }
 
 h2 {
-    color: #ff758c;
+    color: #EC7FA9;
     font-size: 1.5rem;
     margin: 30px 0 15px;
     font-weight: 600;
@@ -79,17 +78,17 @@ input {
     font-size: 1rem;
     transition: all 0.3s ease;
     box-sizing: border-box;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 237, 250, 0.9);
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 input:focus {
     outline: none;
-    box-shadow: 0px 0px 10px rgba(255, 120, 140, 0.5);
+    box-shadow: 0px 0px 10px rgba(236, 127, 169, 0.5);
 }
 
 button {
-    background: linear-gradient(90deg, #ff758c, #ff7eb3, #ffc371);
+    background: linear-gradient(90deg, #FFB8E0, #EC7FA9, #BE5985);
     color: #333;
     border: none;
     padding: 15px 30px;
@@ -99,40 +98,30 @@ button {
     font-size: 1rem;
     font-weight: bold;
     transition: all 0.3s ease;
-    box-shadow: 0px 5px 15px rgba(255, 120, 140, 0.3);
+    box-shadow: 0px 5px 15px rgba(236, 127, 169, 0.3);
     width: 100%;
     max-width: 300px;
 }
 
 button:hover {
-    background: linear-gradient(90deg, #ffc371, #ff7eb3, #ff758c);
+    background: linear-gradient(90deg, #BE5985, #EC7FA9, #FFB8E0);
     transform: translateY(-2px);
-    box-shadow: 0px 7px 20px rgba(255, 120, 140, 0.4);
+    box-shadow: 0px 7px 20px rgba(236, 127, 169, 0.4);
 }
 
 /* Secciones de contenido */
 .user-info, .post-info {
     margin-top: 20px;
     padding: 25px;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 237, 250, 0.8);
     border-radius: 15px;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
     animation: fadeIn 0.5s ease-in-out;
-    min-width: 450px;
-}
-
-.user-info {
-    margin-top: 0px;
-}
-
-.user-info p, .post-info p {
-    margin: 10px 0;
-    font-size: 1rem;
-    line-height: 1.6;
+    min-width: 40%;
 }
 
 .user-info strong, .post-info strong {
-    color: #ff758c;
+    color: #EC7FA9;
     font-weight: 600;
 }
 
@@ -144,15 +133,8 @@ button:hover {
     margin-top: 15px;
 }
 
-.reactions span {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-weight: 500;
-}
-
 .fa-thumbs-up {
-    color:#ff6384;
+    color:#EC7FA9;
 }
 
 .fa-thumbs-down {
@@ -168,72 +150,31 @@ button:hover {
 .comments-list li {
     padding: 15px;
     margin-bottom: 15px;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 237, 250, 0.9);
     border-radius: 10px;
-    border-left: 4px solid #ff758c;
+    border-left: 4px solid #EC7FA9;
     transition: all 0.3s ease;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
     position: relative;
 }
 
-.comments-list li:last-child {
-    margin-bottom: 0;
-}
-
 .comments-list strong {
-    color: #ff758c;
-}
-
-.no-comments {
-    color: #666;
-    font-style: italic;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 10px;
+    color: #EC7FA9;
 }
 
 .error-message {
-    color: #d63031;
-    background: rgba(255, 234, 167, 0.7);
+    color: #BE5985;
+    background: rgba(255, 184, 224, 0.7);
     padding: 15px;
     border-radius: 10px;
     margin-top: 20px;
     font-weight: 500;
 }
 
-.no-posts {
-    font-size: 16px;
-    color: #777;
-    font-style: italic;
-    margin-top: 10px;
-}
-
-/* Animaciones */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .container {
-        padding: 30px 20px;
-        width: 95%;
-    }
-    
-    h1 {
-        font-size: 2rem;
-    }
-    
-    .user-info, .post-info, .comments-list {
-        padding: 20px 15px;
-    }
-}
-
 .divider {
     width: 100px;
     height: 4px;
-    background: linear-gradient(90deg, #ff758c, #ff7eb3, #ffc371);
+    background: linear-gradient(90deg, #FFB8E0, #EC7FA9, #BE5985);
     border-radius: 2px;
     margin: 30px auto 0 auto;
 }
