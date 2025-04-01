@@ -34,9 +34,9 @@
         <div class="divider"></div>
       </form>
 
-      <app-info-usuario></app-info-usuario>
-      <app-posts></app-posts>
-      <app-comments></app-comments>
+      <app-info-usuario [usuario]="usuario"></app-info-usuario>
+      <app-posts [publicacion]="publicacion" [usuario]="usuario"></app-posts>
+      <app-comments [comentarios]="comentarios" [publicacion]="publicacion" [usuarioNoEncontrado]="usuarioNoEncontrado"></app-comments>
     </div>
   </body>
 </html>
