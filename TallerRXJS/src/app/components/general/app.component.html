@@ -35,13 +35,15 @@
       </form>
 
       <app-info-usuario [usuario]="usuario"></app-info-usuario>
-      <app-posts [publicaciones]="publicaciones" [usuario]="usuario"></app-posts>
+      
       <div *ngFor="let post of publicaciones">
+        <app-posts [publicaciones]="[post]" [usuario]="usuario"></app-posts>
         <app-comments [comentarios]="comentarios[post.id] || []" 
                       [publicacion]="post" 
                       [usuarioNoEncontrado]="usuarioNoEncontrado">
         </app-comments>
-      </div>      
-    </div>
+      </div>
+    </div>  
+      <p *ngIf="usuarioNoEncontrado" class="error-message"> ⚠️ Usuario no encontrado ⚠️ </p>      
   </body>
 </html>
