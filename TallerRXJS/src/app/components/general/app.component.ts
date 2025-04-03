@@ -5,6 +5,7 @@ import { mergeMap } from 'rxjs/operators';
 import { User } from '../../models/User';
 import { Post } from '../../models/Post';
 import { Comment } from '../../models/Comment';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -18,9 +19,9 @@ export class AppComponent implements OnInit {
   ROOT_URL = "https://dummyjson.com";
 
   usuario: User | null = null;
-  publicacion: Post | null = null;
+  publicaciones: Post[] = []; // Ahora almacena una lista de posts
   txUser: string = "";
-  comentarios: Comment[] = [];
+  comentarios: { [postId: number]: Comment[] } = {}; // Comentarios organizados por post
 
   constructor(private http: HttpClient) {}
 
@@ -31,7 +32,6 @@ export class AppComponent implements OnInit {
   }
 
   searchUser() {
-    // Si el campo de búsqueda está vacío, no realiza la consulta
     if (!this.txUser.trim()) {
       console.warn("El campo de búsqueda está vacío.");
       this.limpiarDatos();
@@ -40,13 +40,10 @@ export class AppComponent implements OnInit {
   
     this.http.get<any>(`${this.ROOT_URL}/users/search?q=${this.txUser}`).subscribe({
       next: (userInfo) => {
-        // Verifica si se encontraron usuarios
         if (userInfo.users && userInfo.users.length > 0) {
           this.usuario = userInfo.users[0];
           this.usuarioNoEncontrado = false;
-
-          // Llama a getUserAndPost() para obtener el post del usuario
-          this.getUserAndPost();
+          this.getUserAndPosts(); // Llamar la nueva versión del método
         } else {
           this.limpiarDatos();
         }
@@ -60,51 +57,19 @@ export class AppComponent implements OnInit {
   
   private limpiarDatos() {
     this.usuario = null;
-    this.publicacion = null;
-    this.comentarios = [];
+    this.publicaciones = [];
+    this.comentarios = {};
     this.usuarioNoEncontrado = true;
   }  
 
-  getPost(id: number) {
-    this.http.get<any>(`${this.ROOT_URL}/posts/user/${id}`).subscribe(
-      (postInfo: any) => {
-        if (postInfo.posts && postInfo.posts.length > 0) {
-          this.publicacion = postInfo.posts[0];
-  
-          // Verificación explícita antes de hacer la petición de comentarios
-          if (this.publicacion && this.publicacion.id) {
-            this.http.get<any>(`${this.ROOT_URL}/comments/post/${this.publicacion.id}`).subscribe(
-              (commentsInfo: any) => {
-                this.comentarios = commentsInfo.comments || [];
-              },
-              (error) => {
-                console.error('Error al obtener los comentarios:', error);
-              }
-            );
-          } else {
-            this.comentarios = []; // Limpiar comentarios si no hay publicación válida
-          }
-        } else {
-          this.publicacion = null;
-          this.comentarios = []; // Limpiar comentarios si no hay posts
-        }
-      },
-      (error) => {
-        console.error('Error al obtener los posts:', error);
-      }
-    );
-  }
-  
-
-  getUserAndPost() {
+  getUserAndPosts() {
     this.http.get<any>(`${this.ROOT_URL}/users/search?q=${this.txUser}`)
       .pipe(
         mergeMap((userInfo: any) => {
           if (userInfo.users && userInfo.users.length > 0) {
             this.usuario = userInfo.users[0];
             this.usuarioNoEncontrado = false;
-  
-            // Verificación explícita antes de acceder a id
+
             if (this.usuario?.id) {
               return this.http.get<any>(`${this.ROOT_URL}/posts/user/${this.usuario.id}`);
             }
@@ -116,21 +81,29 @@ export class AppComponent implements OnInit {
         }),
         mergeMap((postInfo: any) => {
           if (postInfo && postInfo.posts.length > 0) {
-            this.publicacion = postInfo.posts[0];
-  
-            // Verificación antes de acceder a id
-            if (this.publicacion?.id) {
-              return this.http.get<any>(`${this.ROOT_URL}/comments/post/${this.publicacion.id}`);
-            }
+            this.publicaciones = postInfo.posts;
+            return this.obtenerComentariosDePosts(postInfo.posts);
           }
   
-          this.publicacion = null;
-          this.comentarios = [];
+          this.publicaciones = [];
+          this.comentarios = {};
           return of(null);
         })
       )
-      .subscribe((commentsInfo: any) => {
-        this.comentarios = commentsInfo?.comments || [];
-      });
+      .subscribe();
+  }
+
+  obtenerComentariosDePosts(posts: Post[]): Observable<any> {
+    const requests = posts.map(post => 
+      this.http.get<any>(`${this.ROOT_URL}/comments/post/${post.id}`)
+    );
+    return forkJoin(requests).pipe( // Ejecuta todas las solicitudes de comentarios en paralelo y espera hasta que todas finalicen.
+      mergeMap((responses) => {
+        responses.forEach((commentsInfo, index) => {
+          this.comentarios[posts[index].id] = commentsInfo?.comments || [];
+        });
+        return of(responses);
+      })
+    );
   }
 }

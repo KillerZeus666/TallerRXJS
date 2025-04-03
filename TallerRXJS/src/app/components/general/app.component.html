@@ -35,8 +35,13 @@
       </form>
 
       <app-info-usuario [usuario]="usuario"></app-info-usuario>
-      <app-posts [publicacion]="publicacion" [usuario]="usuario"></app-posts>
-      <app-comments [comentarios]="comentarios" [publicacion]="publicacion" [usuarioNoEncontrado]="usuarioNoEncontrado"></app-comments>
+      <app-posts [publicaciones]="publicaciones" [usuario]="usuario"></app-posts>
+      <div *ngFor="let post of publicaciones">
+        <app-comments [comentarios]="comentarios[post.id] || []" 
+                      [publicacion]="post" 
+                      [usuarioNoEncontrado]="usuarioNoEncontrado">
+        </app-comments>
+      </div>      
     </div>
   </body>
 </html>

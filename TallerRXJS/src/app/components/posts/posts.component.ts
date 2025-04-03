@@ -8,6 +8,6 @@ import { User } from '../../models/User';
   styleUrls: ['./posts.component.css']
 })
 export class PostsComponent {
-  @Input() publicacion: Post | null = null;
-  @Input() usuario: User | null = null; // Necesario para la condición *ngIf en el HTML
+  @Input() publicaciones: Post[] = []; // Ahora es un array de publicaciones
+  @Input() usuario: User | null = null;
 }

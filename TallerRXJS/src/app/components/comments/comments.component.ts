@@ -8,7 +8,7 @@ import { Post } from '../../models/Post';
   styleUrls: ['./comments.component.css']
 })
 export class CommentsComponent {
-  @Input() comentarios: Comment[] = [];
+  @Input() comentarios: Comment[] = []; // Se pasa el array correcto por cada post
   @Input() publicacion: Post | null = null;
   @Input() usuarioNoEncontrado: boolean = false;
 }
